@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-model href="Schema.xsd" type="application/xml" schematypens="TeapotDialog"?>
+<data>
+<conversation id="0">
+    <settings>
+        <style>
+
+        </style>
+    </settings>
+    <next>0</next>
+    <node id="0">
+        <speaker>God</speaker>
+        <listener>Programmer</listener>
+        <text lang="EN">
+            this is node 0 and has choices
+        </text>
+        <audio lang="EN">
+
+        </audio>
+        <next>
+            <choice>
+                <option>
+                    <text lang="EN">Go to 1</text>
+                    <next>1</next>
+                </option>
+                <option>
+                    <text lang="EN">Go to 2</text>
+                    <next>2</next>
+                </option>
+                <option>
+                    <condition op-code="gt">
+                        <valueof ref="x" type="int"/>
+                        <value type="int">3</value>
+                    </condition>
+                    <text lang="EN">"Go to 3. shows if x &gt; 3"</text>
+                    <next>3</next>
+                </option>
+            </choice>
+        </next>
+    </node>
+    <node id="1">
+        <speaker>God</speaker>
+        <listener>Programmer</listener>
+        <text lang="EN">
+            this is node 1 and goes to node 4
+        </text>
+        <next>4</next>
+    </node>
+    <node id="2">
+        <speaker>God</speaker>
+        <listener>Programmer</listener>
+        <text lang="EN">
+            this is node 2 and goes to node 4 if x is &lt; 0, goes to 3 if x is &gt; 3, otherwise loops to beginning
+        </text>
+        <next>
+            <conditional>
+                <case>
+                    <condition op-code="lt">
+                        <valueof ref="x" type="int"/>
+                        <value type="int">0</value>
+                    </condition>
+                    <result>4</result>
+                </case>
+                <case>
+                    <condition op-code="gt">
+                        <valueof ref="x" type="int"/>
+                        <value type="int">3</value>
+                    </condition>
+                    <result>3</result>
+                </case>
+                <default>
+                    <result>0</result>
+                </default>
+            </conditional>
+        </next>
+    </node>
+    <node id="3">
+        <speaker>God</speaker>
+        <listener>Programmer</listener>
+        <text lang="EN">
+            this is node 3 and goes to node 5 if x is &lt; 3 or y &lt; 3, otherwise dialog ends
+        </text>
+        <next>
+            <conditional>
+                <case>
+                    <condition op-code="or">
+                        <condition op-code="lt">
+                            <valueof ref="x" type="int"/>
+                            <value type="int">3</value>
+                        </condition>
+                        <condition op-code="lt">
+                            <valueof ref="y" type="int"/>
+                            <value type="int">3</value>
+                        </condition>
+                    </condition>
+                    <result>5</result>
+                </case>
+                <default>
+                    <result>-1</result>
+                </default>
+            </conditional>
+        </next>
+    </node>
+    <node id="4">
+        <speaker>Programmer</speaker>
+        <listener>Programmer</listener>
+        <text lang="EN">
+            <i>I feel my power growing.</i> recieved x+=1,<lb/>my x is now <b><valueof ref="x"/></b>.
+        </text>
+        <next>0</next>
+        <start>
+            <operation op-code="add" set="x" type="int">
+                <valueof ref="x" type="int"/>
+                <value type="int">1</value>
+            </operation>
+        </start>
+    </node>
+    <node id="5">
+        <speaker>Programmer</speaker>
+        <listener>Programmer</listener>
+        <text lang="EN">
+            <i>I feel my power growing.</i> recieved y+=1,<lb/>my y is now <b><valueof ref="y"/></b>.
+        </text>
+        <next>0</next>
+        <start>
+            <operation op-code="add" set="y" type="int">
+                <valueof ref="y" type="int"/>
+                <value type="int">1</value>
+            </operation>
+        </start>
+    </node>
+</conversation>
+</data>
